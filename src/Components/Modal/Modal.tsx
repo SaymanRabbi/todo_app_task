@@ -58,7 +58,7 @@ const Modal:React.FC<Props> = ({
        }, 1000);
     }, [successMessage]);
     return (
-        <div className=' fixed top-0 left-0 bottom-0 right-0 w-[100%] h-[100vh] bg-gray-900 z-50 flex justify-center items-center'>
+        <div className=' fixed top-0 left-0 bottom-0 right-0 w-[100%] h-[100vh] bg-gray-700/90 z-50 flex justify-center items-center'>
             {/* show toast */}
             {
                 success && <Toast message={successMessage} type='success'/>

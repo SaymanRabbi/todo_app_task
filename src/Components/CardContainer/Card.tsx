@@ -16,7 +16,6 @@ const Card = () => {
     }, [successMessage]);
     const handleDelete = (id:string)=>{
         deleteTask(id);
-
     }
     const handleUpdate = ()=>{
         openModal();
