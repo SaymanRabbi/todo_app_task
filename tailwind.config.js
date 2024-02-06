@@ -10,6 +10,8 @@ export default {
         textSecondary: "#eee0ff",
         error: "#DC2626",
         bgPrimary: "#322A58",
+        rgbFrom: "#384fde",
+        rgbTo: "#985cf0",
       }
     },
   },

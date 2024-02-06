@@ -1,12 +1,21 @@
 import { useForm } from "react-hook-form";
 import Container from "./Container/Container";
+import Button from "./Button/Button";
 interface FormData {
     name: string;
     description: string;
     priority: string;
 }
+const PriorityList = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+  ];
 
 const TaskForm = () => {
+    const onSubmit = (data: FormData) => {
+        console.log(data);
+    };
     const {
         register,
         handleSubmit,
@@ -16,10 +25,12 @@ const TaskForm = () => {
         <Container className="h-[100%] w-[98%] mx-auto">
         <div className=" flex flex-wrap mx-[15px] lg:px-14">
             {/* task submission form */}
-          <form className="bg-bgPrimary  py-[10px] rounded-[20px] px-[20px] w-[100%]">
-          <div className=" grid grid-cols-12 w-[100%] pt-[20px] gap-5">
+          <form className="bg-bgPrimary  py-[20px] rounded-[20px] xl:px-[20px] px-[10px] w-[100%]"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+          <div className=" grid grid-cols-12 w-[100%] pt-[20px]  xl:gap-5 gap-2">
                 {/* task submit form */}
-            <div className=" col-span-12 xl:col-span-3 md:col-span-10 ">
+            <div className=" col-span-12 md:col-span-3  relative">
                 {/* Task Tittle */}
             <input
           type="text"
@@ -34,15 +45,12 @@ const TaskForm = () => {
           })}
         />
           {errors.name && (
-          <p className="text-error  text-base">{errors.name.message}</p>
+          <span className="text-error  text-base absolute bottom-[-10px]">{errors.name.message}</span>
         )}
                 {/* Task Tittle */}
-            </div>
-
-         
+            </div>         
                 {/* Task Description */}
-                <div className=" col-span-12 xl:col-span-5 md:col-span-10 ">
-               
+            <div className=" col-span-12 md:col-span-5   relative">
             <input
           type="text"
           placeholder="Description"
@@ -52,15 +60,47 @@ const TaskForm = () => {
             minLength: {
                 value: 10,
                 message: "Description should be at least 10 characters long",
+            },
+            maxLength: {
+                value: 30,
+                message: "Description should not be greater than 30 characters",
             }
            ,
           })}
         />
           {errors.description && (
-          <p className="text-error  text-base">{errors.description.message}</p>
+          <span className="text-error  text-base absolute bottom-[-10px]">{errors.description.message}</span>
         )}
             </div>
                 {/* Task Description */}
+                {/* List for priority */}
+                <div className=" col-span-10 md:col-span-3  ">
+                <select
+            className="primary_input  px-4"
+            {...register("priority", {  required: "Priority is required"}
+            )}
+            >
+            {PriorityList.map((priority) => (
+                <option key={priority.value} value={priority.value}>
+                {priority.label}
+                </option>
+            ))}
+            </select>
+            {errors.priority && (
+            <p className="text-error  text-base">{errors.priority.message}</p>
+            )}
+                </div>
+                {/* List for priority */}
+                {/* submit button */}
+                <div className="col-span-2 md:col-span-1  flex items-center" >
+                    <Button   
+                    type="submit"
+                    className="bg-gradient-to-r from-rgbFrom to-rgbTo mb-[15px]"
+                    >
+                        +
+                    </Button>
+                </div>
+                {/* submit button */}
           </div>
                 </form>
             
