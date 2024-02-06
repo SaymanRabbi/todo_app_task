@@ -9,6 +9,7 @@ export default {
       colors:{
         textSecondary: "#eee0ff",
         error: "#DC2626",
+        bgPrimary: "#322A58",
       }
     },
   },
