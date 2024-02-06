@@ -36,9 +36,7 @@ npm i
 ## Usage
 
 **Run the application:**
-https://your-todo-app-live-url.com"` with the actual live URL of your deployed ToDo App.
-
-npm run dev
+[https://friendly-selkie-d408a1.netlify.app/] with the actual live UR
 
 # 1.Create a new task:
 
@@ -60,8 +58,8 @@ The task will be marked as complete.
 ### Technologies Used
 
 React
-React Hook Form
-Zustand
+**React Hook Form ( For Handel The form)**
+**Zustand (For Handel The Store)**
 React Icons
 TypeScript
 Vite (build tool)

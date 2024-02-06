@@ -6,7 +6,12 @@ import Container from "../Container/Container";
 import DynamicHeading from "../DynamicHeading";
 import Modal from "../Modal/Modal";
 import Toast from "../Toast/Toast";
-
+interface PriorityOrder {
+  low: number;
+  medium: number;
+  high: number;
+  complete: number;
+}
 const Card = () => {
   const [index, setIndex] = useState(0);
     const {task,deleteTask,completeTask,openModal,modal,successMessage,success,clearMessage} = useTaskStore((state)=>state);
@@ -28,17 +33,17 @@ const Card = () => {
     }
     // short the task based on priority
     const sortedTasks = task.sort((a:any, b:any) => {
-        const priorityOrder = { low: 2, medium: 1, high: 0, complete: 3 };
+        const priorityOrder:PriorityOrder = { low: 2, medium: 1, high: 0, complete: 3 };
       
-        const getPriorityIndex = (task :TaskTypes) => {
+        const getPriorityIndex = (task: TaskTypes) => {
           if (task.status === 'Completed') {
             return priorityOrder.complete;
           }
-      
-          if ('priority' in task && task.priority && priorityOrder[task.priority] !== undefined) {
-            return priorityOrder[task.priority];
+        
+          if (task.priority && priorityOrder[task.priority as keyof PriorityOrder] !== undefined) {
+            return priorityOrder[task.priority as keyof PriorityOrder];
           }
-      
+        
           return 3; // default to low priority
         };
       
