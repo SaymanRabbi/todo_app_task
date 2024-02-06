@@ -1,26 +1,43 @@
 import { useForm } from "react-hook-form";
 import Container from "./Container/Container";
 import Button from "./Button/Button";
+import { useTaskStore } from "../Store/Task";
 interface FormData {
     name: string;
     description: string;
     priority: string;
 }
 const PriorityList = [
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
     { value: "high", label: "High" },
+    { value: "medium", label: "Medium" },
+    { value: "low", label: "Low" },
   ];
 
 const TaskForm = () => {
-    const onSubmit = (data: FormData) => {
-        console.log(data);
-    };
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
       } = useForm<FormData>();
+    const {addTask,clearMessage,successMessage} = useTaskStore((state)=>state);
+    const onSubmit = (data: FormData) => {
+        const task = {
+            name: data.name,
+            description: data.description,
+            priority: data.priority,
+            status: "Active",
+            id: Math.random().toString(36).substr(2, 9),
+          };
+         addTask(task);
+    };
+    setTimeout(() => {
+         if(successMessage==='Task added successfully'){
+            clearMessage();
+            reset();
+         }
+    }, 1000);
+
     return (
         <Container className="h-[100%] w-[98%] mx-auto">
         <div className=" flex flex-wrap mx-[15px] lg:px-14">
@@ -39,7 +56,7 @@ const TaskForm = () => {
           {...register("name", {
             required: "Tittle is required",
             pattern: {
-              value: /^[A-Za-z]+$/i,
+              value: /^[A-Za-z]/,
               message: "Tittle should contain only alphabets",
             },
           })}
@@ -95,7 +112,7 @@ const TaskForm = () => {
                 <div className="col-span-2 md:col-span-1  flex items-center" >
                     <Button   
                     type="submit"
-                    className="bg-gradient-to-r from-rgbFrom to-rgbTo mb-[15px]"
+                    className="bg-gradient-to-r from-rgbFrom to-rgbTo mb-[15px] text-[20px]"
                     >
                         +
                     </Button>
