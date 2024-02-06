@@ -12,6 +12,7 @@ export default {
         bgPrimary: "#322A58",
         rgbFrom: "#384fde",
         rgbTo: "#985cf0",
+        success: "#059669",
       }
     },
   },
