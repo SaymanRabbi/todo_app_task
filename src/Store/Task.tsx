@@ -4,7 +4,6 @@ interface taskInterface {
     task:TaskTypes[];
     addTask:(task:TaskTypes)=>void;
     deleteTask:(id:string)=>void;
-    updateTask:(id:string)=>void;
     success: boolean;
     error: boolean;
     successMessage: string;
@@ -13,6 +12,8 @@ interface taskInterface {
    completeTask:(id:string)=>void;
    loading:boolean;
    completeUpdate:(id:string,task:TaskTypes)=>void;
+   openModal:()=>void;
+   modal:boolean;
 }
 // Load tasks from localStorage
 const savedTasks = localStorage.getItem("tasks");
@@ -24,6 +25,8 @@ export const useTaskStore = create<taskInterface>((set) => ({
     successMessage: "",
     errorMessage: "",
     loading:false,
+    modal:false,
+    openModal:()=>set((state)=>({modal:!state.modal})),
     addTask: (task) =>
       set((state) => {
         const newTasks = [...state.task, task];
@@ -52,13 +55,7 @@ export const useTaskStore = create<taskInterface>((set) => ({
           errorMessage: "",
         };
       }),
-    updateTask: (id) => set((state) => ({ task: state.task.map((task) => (task.id === id ? { ...task,status:"Loading"
-     } : task)),
-        success: true,
-        error: false,
-        successMessage: "Task updated successfully",
-        errorMessage: ""
-})),
+  
     clearMessage: () => set(() => ({ success: false, error: false, successMessage: "", errorMessage: "" })),
     completeTask: (id) => set((state) =>{
         const newTasks = state.task.map((task) =>

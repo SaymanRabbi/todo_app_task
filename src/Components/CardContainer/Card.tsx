@@ -3,14 +3,16 @@ import { TaskTypes } from "../../Types";
 import Button from "../Button/Button";
 import Container from "../Container/Container";
 import DynamicHeading from "../DynamicHeading";
+import Modal from "../Modal/Modal";
 const Card = () => {
-    const {task,deleteTask,completeTask,updateTask} = useTaskStore((state)=>state);
-    console.log(task);
+    const {task,deleteTask,completeTask,openModal,modal} = useTaskStore((state)=>state);
     const handleDelete = (id:string)=>{
         deleteTask(id);
     }
-    const handleUpdate = (id:string)=>{
-        updateTask(id);
+    const handleUpdate = ()=>{
+        openModal();
+        
+
     }
     const handleComplete = (id:string)=>{
         completeTask(id);
@@ -61,6 +63,11 @@ const Card = () => {
                                         }
                                   </div>
                                   {/* Description */}
+                                  {/* modal */}
+                                    {
+                                        modal && <Modal id={task.id} name={task.name} description={task.description} priority={task.priority}/>
+                                    }
+                                  {/* modal */}
                                   {/* Priority */}
                                   <div className={`text-start text-[13px] leading-[18px] mt-[3px]   bg-gray-700 w-fit px-[5px] py-[3px] rounded-[2px] font-bold ${task.status ! ==="Active"? task.priority === 'medium'?"text-[#FFD700]": task.priority === 'high'?"text-[#FF6347] ":task.priority ==='low'?
                                   "text-[#32CD32]":"":" text-gray-400"}`}>
@@ -68,7 +75,7 @@ const Card = () => {
                                       </div>
                                       <div className=" flex gap-x-4">
                                           <Button className="bg-rgbFrom text-[#fff] mt-4 w-[100%] py-2 rounded-[5px]"
-                                            onClick={()=>handleUpdate(task.id)}
+                                            onClick={()=>handleUpdate()}
                                           >Edit</Button>
                                           <Button className="bg-error text-[#fff] mt-4 w-[100%] py-2 rounded-[5px]"
                                             onClick={()=>handleDelete(task.id)}
