@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import Container from "../Container/Container";
 import DynamicHeading from "../DynamicHeading";
 const Card = () => {
-    const {task,updateTask,deleteTask,completeTask} = useTaskStore((state)=>state);
+    const {task,deleteTask,completeTask} = useTaskStore((state)=>state);
     const handleDelete = (id:string)=>{
         deleteTask(id);
     }
@@ -13,10 +13,26 @@ const Card = () => {
     const handleComplete = (id:string)=>{
         completeTask(id);
     }
-    const sortedTasks = task.sort((a, b) => {
-        const priorityOrder = { low: 0, medium: 1, high: 2 };
-        console.log(a?.priority,b?.priority);
-        return priorityOrder[a?.priority] - priorityOrder[b?.priority];
+    // short the task based on priority
+    const sortedTasks = task.sort((a:any, b:any) => {
+        const priorityOrder = { low: 2, medium: 1, high: 0, complete: 3 };
+      
+        const getPriorityIndex = (task:any) => {
+          if (task.status === 'Completed') {
+            return priorityOrder.complete;
+          }
+      
+          if ('priority' in task && task.priority && priorityOrder[task.priority] !== undefined) {
+            return priorityOrder[task.priority];
+          }
+      
+          return 3; // default to low priority
+        };
+      
+        const priorityA = getPriorityIndex(a);
+        const priorityB = getPriorityIndex(b);
+      
+        return priorityA - priorityB;
       });
     return (
         <Container className="py-10 w-[85%] mx-auto ">

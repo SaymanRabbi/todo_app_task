@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import Container from "./Container/Container";
 import Button from "./Button/Button";
 import { useTaskStore } from "../Store/Task";
+import { useState } from "react";
 interface FormData {
     name: string;
     description: string;
@@ -14,6 +15,7 @@ const PriorityList = [
   ];
 
 const TaskForm = () => {
+    const [loading, setLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -22,6 +24,7 @@ const TaskForm = () => {
       } = useForm<FormData>();
     const {addTask,clearMessage,successMessage} = useTaskStore((state)=>state);
     const onSubmit = (data: FormData) => {
+        setLoading(true);
         const task = {
             name: data.name,
             description: data.description,
@@ -35,6 +38,7 @@ const TaskForm = () => {
          if(successMessage==='Task added successfully'){
             clearMessage();
             reset();
+            setLoading(false);
          }
     }, 1000);
 
@@ -113,8 +117,11 @@ const TaskForm = () => {
                     <Button   
                     type="submit"
                     className="bg-gradient-to-r from-rgbFrom to-rgbTo mb-[15px] text-[20px]"
+                    disabled={loading}
                     >
-                        +
+                       {
+                            loading?'...':'+'
+                       }
                     </Button>
                 </div>
                 {/* submit button */}

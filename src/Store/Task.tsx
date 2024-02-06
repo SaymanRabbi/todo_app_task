@@ -11,6 +11,7 @@ interface taskInterface {
     errorMessage: string;
     clearMessage:()=>void;
    completeTask:(id:string)=>void;
+   loading:boolean;
 }
 
 export const useTaskStore = create<taskInterface>((set) => ({
@@ -19,11 +20,12 @@ export const useTaskStore = create<taskInterface>((set) => ({
     error: false,
     successMessage: "",
     errorMessage: "",
+    loading:false,
     addTask: (task) => set((state) => ({ task: [...state.task, task],
      success: true,
      error: false,
      successMessage: "Task added successfully",
-     errorMessage: ""
+     errorMessage: "",
     })),
     deleteTask: (id) => set((state) => ({ task: state.task.filter((task) => task.id !== id), success: true, error: false, successMessage: "Task deleted successfully", errorMessage: ""
     })),
