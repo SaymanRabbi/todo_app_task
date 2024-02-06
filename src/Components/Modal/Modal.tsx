@@ -13,6 +13,7 @@ const PriorityList = [
   ];
 import Button from '../Button/Button';
 import { useTaskStore } from "../../Store/Task";
+import Toast from "../Toast/Toast";
 interface Props {
      id:string;
      name?:string;
@@ -31,8 +32,7 @@ const Modal:React.FC<Props> = ({
         reset,
         formState: { errors },
       } = useForm<FormData>();
-    const {clearMessage,successMessage,completeUpdate,openModal} = useTaskStore((state)=>state);
-    console.log(successMessage);
+    const {clearMessage,successMessage,completeUpdate,openModal,success} = useTaskStore((state)=>state);
     const onSubmit = (data: FormData) => {
         setLoading(true);
         const task = {
@@ -59,6 +59,11 @@ const Modal:React.FC<Props> = ({
     }, [successMessage]);
     return (
         <div className=' fixed top-0 left-0 bottom-0 right-0 w-[100%] h-[100vh] bg-gray-900 z-50 flex justify-center items-center'>
+            {/* show toast */}
+            {
+                success && <Toast message={successMessage} type='success'/>
+            }
+            {/* show toast */}
              {/* Card for update data */}
       <div className=" max-w-[480px] relative">
         <p className=" absolute right-[10px] top-0 text-gray-100 text-[24px] font-bold  cursor-pointer"

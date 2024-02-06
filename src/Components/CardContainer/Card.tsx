@@ -1,18 +1,25 @@
+import { useEffect } from "react";
 import { useTaskStore } from "../../Store/Task";
 import { TaskTypes } from "../../Types";
 import Button from "../Button/Button";
 import Container from "../Container/Container";
 import DynamicHeading from "../DynamicHeading";
 import Modal from "../Modal/Modal";
+import Toast from "../Toast/Toast";
+
 const Card = () => {
-    const {task,deleteTask,completeTask,openModal,modal} = useTaskStore((state)=>state);
+    const {task,deleteTask,completeTask,openModal,modal,successMessage,success,clearMessage} = useTaskStore((state)=>state);
+    useEffect(() => {
+        setTimeout(() => {
+            clearMessage();
+        }, 1000);
+    }, [successMessage]);
     const handleDelete = (id:string)=>{
         deleteTask(id);
+
     }
     const handleUpdate = ()=>{
         openModal();
-        
-
     }
     const handleComplete = (id:string)=>{
         completeTask(id);
@@ -40,6 +47,14 @@ const Card = () => {
       });
     return (
         <Container className="py-10 w-[85%] mx-auto ">
+            {/* toast */}
+            {
+                successMessage ==='Task deleted successfully' && <Toast message={successMessage} type='error'/>
+            }
+            {
+                success && successMessage !=='Task deleted successfully' && <Toast message={successMessage} type='success'/>
+            }
+            {/* toast */}
              <div className=" grid grid-cols-12 gap-4 ">
                  {
                        task.length > 0 ?sortedTasks.map((task)=>(  <div className="bg-bgPrimary  py-[20px] rounded-[5px] xl:px-[20px] px-[10px] w-[100%]  md:col-span-4 col-span-12 shadow-2xl relative" key={task.id}>
