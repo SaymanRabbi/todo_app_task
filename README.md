@@ -1,30 +1,78 @@
-# React + TypeScript + Vite
+# ToDo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple ToDo application where users can manage their daily tasks. Users can create, update, and mark tasks as complete.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Create new tasks with a title, description, and priority.
+Update existing tasks to modify their details.
+Mark tasks as complete.
+Visual indication of task priority.
+Responsive and user-friendly interface.
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Provide step-by-step instructions on how to install and set up your project.
+
+```bash
+# Clone the repository
+git clone https://github.com/SaymanRabbi/todo_app_task.git
+
+# Navigate to the project directory
+cd todo_app_task
+
+# Install dependencies
+npm i
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Usage
+
+**Run the application:**
+https://your-todo-app-live-url.com"` with the actual live URL of your deployed ToDo App.
+
+npm run dev
+
+# 1.Create a new task:
+
+Click on the "Add Task" button.
+Fill in the task details (title, description, priority).
+Click "Save" to add the task.
+
+# 2.Update a task:
+
+Click on the "Edit" button next to the task.
+Modify the task details.
+Click "Update" to save the changes.
+
+# 3.Complete a task:
+
+Click on the "Complete" button next to the task.
+The task will be marked as complete.
+
+### Technologies Used
+
+React
+React Hook Form
+Zustand
+React Icons
+TypeScript
+Vite (build tool)
+Tailwind CSS
+ESLint (linting)
+Prettier (code formatting)
+
+## Contributing
+
+Feel free to contribute to the project by creating issues or submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License.

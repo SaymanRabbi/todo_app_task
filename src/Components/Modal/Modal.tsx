@@ -31,15 +31,15 @@ const Modal:React.FC<Props> = ({
         register,
         handleSubmit,
         reset,
-        setValue,
         formState: { errors },
       } = useForm<FormData>();
       useEffect(() => {
-        // Use setValue to set initial values when the task details change
-        setValue("name", name || "");
-        setValue("description", description || "");
-        setValue("priority", priority || "");
-      }, [name, description, priority, setValue]);
+        reset({
+          name: name || '', // Use empty string if name is undefined
+          description: description || '',
+          priority: priority || '',
+        });
+      }, [name, description, priority, reset]);
     
     const {clearMessage,successMessage,completeUpdate,openModal,success} = useTaskStore((state)=>state);
     const onSubmit = (data: FormData) => {
