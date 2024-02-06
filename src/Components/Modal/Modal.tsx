@@ -26,12 +26,21 @@ const Modal:React.FC<Props> = ({
      id,name,description,priority
 }) => {
     const [loading, setLoading] = useState(false);
+   
     const {
         register,
         handleSubmit,
         reset,
+        setValue,
         formState: { errors },
       } = useForm<FormData>();
+      useEffect(() => {
+        // Use setValue to set initial values when the task details change
+        setValue("name", name || "");
+        setValue("description", description || "");
+        setValue("priority", priority || "");
+      }, [name, description, priority, setValue]);
+    
     const {clearMessage,successMessage,completeUpdate,openModal,success} = useTaskStore((state)=>state);
     const onSubmit = (data: FormData) => {
         setLoading(true);
@@ -49,10 +58,10 @@ const Modal:React.FC<Props> = ({
     }
     useEffect(() => {
         setTimeout(() => {
-            if(successMessage==='Task updated successfully'){
+            if(successMessage){
+              openModal();
                 reset();
                 setLoading(false);
-                openModal();
                 clearMessage();
             }
        }, 1000);
@@ -77,7 +86,6 @@ const Modal:React.FC<Props> = ({
                   <div className=" col-span-12   relative">
                       {/* Task Tittle */}
                   <input
-                  defaultValue={name}
                 type="text"
                 placeholder="Tittle"
                 className="primary_input !py-[15px] !mb-[5px]"
@@ -97,7 +105,7 @@ const Modal:React.FC<Props> = ({
                       {/* Task Description */}
                   <div className=" col-span-12  relative">
                   <input
-                 defaultValue={description}
+                
                 type="text"
                 placeholder="Description"
                 className="primary_input !py-[15px] !mb-[5px]"
